@@ -8,45 +8,31 @@ btn.addEventListener('click', (e) => {
     var n = document.createElement('li');
     n.textContent = nameInput.value + "-" + emailInput.value + "-" + numInput.value;
     user.appendChild(n);
-    var btn = document.createElement('button'); btn.setAttribute('class', 'del');
-    btn.innerText = 'Delete';
-    n.appendChild(btn);
+    var edit=document.createElement('button');
+    edit.textContent='Edit';
+    var delbtn = document.createElement('button');
+    delbtn.innerText = 'Delete';
+    n.appendChild(delbtn);
+    n.appendChild(edit);
 
     var obj = {
-        name: nameInput.value, email: emailInput.value, number: numInput
+        name: nameInput.value, email: emailInput.value, number: numInput.value
     }
     localStorage.setItem(obj.email, JSON.stringify(obj));
-    user.addEventListener('click', (e) => {
+    delbtn.addEventListener('click', () => {
         e.preventDefault;
-        if (e.target.classList.contains('del')) {
-            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-            var text = e.target.parentNode.textContent;
-            console.log(e.target.parentNode.textContent);
-            var key = '';
-            var count = 0;
-            for (var i = 0; i < text.length; i++) {
-                if (text[i] == '-') {
-                    if (count == 1) {
-                        break;
-                    }
-                    count++;
-                    key = '';
-                }
-                else {
-                    key += text[i];
-                }
-
-            }
-            localStorage.removeItem(key);
-        }
+            user.removeChild(n);
+            localStorage.removeItem(obj.email);
+    });
+    edit.addEventListener('click',()=>{
+        e.preventDefault();
+        nameInput.value=obj.name;
+        emailInput.value=obj.email;
+        numInput.value=obj.number;
+        user.removeChild(n);
+        localStorage.removeItem(obj.email);
     })
-
-
 });
-
-const form = document.querySelector('.info');
-
-const empty = document.querySelector('.empty');
 
 
 
