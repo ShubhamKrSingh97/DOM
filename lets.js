@@ -1,10 +1,25 @@
 var btn=document.querySelector('button');
 var nameInput=document.querySelector('#name');
 var emailInput=document.querySelector('#email');
+var numInput=document.querySelector('#number');
 btn.addEventListener('click',(e)=>{
     e.preventDefault();
-    document.querySelector('.info').style.background='#ccc'
-    onsub();
+    var user=document.querySelector('.user');
+    var n=document.createElement('li');
+    n.textContent=nameInput.value;
+    user.appendChild(n);
+    var e=document.createElement('li');
+    e.textContent=emailInput.value;
+    user.appendChild(e);
+    var nu=document.createElement('li');
+    nu.textContent=numInput.value;
+    user.appendChild(nu);
+    
+    var obj={
+        name:nameInput.value, email: emailInput.value, number: numInput
+
+    }
+    localStorage.setItem(`${numInput.value}`,JSON.stringify(obj));
 
     
 });
@@ -15,17 +30,7 @@ const empty=document.querySelector('.empty');
 
 
 
-function onsub(){
-    if(nameInput.value==='' || emailInput.value===''){
-        empty.innerHTML='Please enter all field';
-        setTimeout(()=> empty.innerHTML='', 3000);
-    }
-    else {
-        var obj={ name: nameInput.value,
-             email:emailInput.value}
-        localStorage.setItem('user',JSON.stringify(obj));
-    }
-}
+
 
 
 
