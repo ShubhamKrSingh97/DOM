@@ -8,12 +8,12 @@ btn.addEventListener('click', (e) => {
         name: nameInput.value, email: emailInput.value, number: numInput.value
     }
     display(obj);
-    axios.post("https://crudcrud.com/api/5cb2b7e480c5413cb54e47d54f44a8ee/appointmentData", obj);
+    axios.post("https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData", obj);
 
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    axios.get("https://crudcrud.com/api/5cb2b7e480c5413cb54e47d54f44a8ee/appointmentData").then((response) => {
+    axios.get("https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData").then((response) => {
         for (var i = 0; i < response.data.length; i++) {
             display(response.data[i]);
 
@@ -36,8 +36,7 @@ function display(res) {
     delbtn.addEventListener('click', (e) => {
         e.preventDefault;
         user.removeChild(n);
-        axios.delete(`https://crudcrud.com/api/5cb2b7e480c5413cb54e47d54f44a8ee/appointmentData/${res._id}`)
-        .catch(err=>{console.log(err)})
+        axios.delete(`https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData/${res._id}`)
     });
 
     edit.addEventListener('click', (e) => {
@@ -46,6 +45,9 @@ function display(res) {
         emailInput.value = res.email;
         numInput.value = res.number;
         user.removeChild(n);
+        axios.delete(`https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData/${res._id}`)
+        .catch(err=>{console.log(err)})
+
     })
 }
 
