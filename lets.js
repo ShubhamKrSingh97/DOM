@@ -15,9 +15,10 @@ btn.addEventListener('click', (e) => {
 window.addEventListener('DOMContentLoaded', () => {
     axios.get("https://crudcrud.com/api/5cb2b7e480c5413cb54e47d54f44a8ee/appointmentData").then((response) => {
         for (var i = 0; i < response.data.length; i++) {
-             display(response.data[i]);
+            display(response.data[i]);
+
         }
-    }).catch(err=>{console.log(err)})
+    }).catch(err => { console.log(err) })
 })
 
 function display(res) {
@@ -31,10 +32,14 @@ function display(res) {
     delbtn.innerText = 'Delete';
     n.appendChild(delbtn);
     n.appendChild(edit);
+
     delbtn.addEventListener('click', (e) => {
         e.preventDefault;
         user.removeChild(n);
+        axios.delete(`https://crudcrud.com/api/5cb2b7e480c5413cb54e47d54f44a8ee/appointmentData/${res._id}`)
+        .catch(err=>{console.log(err)})
     });
+
     edit.addEventListener('click', (e) => {
         e.preventDefault();
         nameInput.value = res.name;
