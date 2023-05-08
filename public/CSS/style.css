@@ -2,17 +2,14 @@
 *{
     margin: 0;
     padding: 0;
-}
-.list{
-    background-color: aqua;
+    list-style: none;
 }
 .primary{
     background-color: black;
     text-align: center;
     font-size: larger;
     color: beige;
-    height: 100px;
-    padding-top: 40px;
+    height: 10vh;
 }
 .form{
     display: flex;
@@ -26,23 +23,30 @@
     flex-direction: column;
     height: fit-content;
     align-items: center;
-    width: 500px;
+    width: 50vw;
     padding-top: 20px;
     padding-bottom: 20px;
     box-shadow: 0 2px 3px black;
 
 }
 .input-grp{
+    padding: 2px;
 display: flex;
-flex-direction: column;
     
 }
-#button{
+.button{
     margin-top: 10px;
     color: beige;
+    margin-left: 5px;
     background-color:black;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 8px;
     padding-right: 8px;
+    cursor: pointer;
+}
+.display{
+    display: flex;
+  
+    justify-content: center;
 }

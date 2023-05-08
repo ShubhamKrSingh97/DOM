@@ -3,32 +3,44 @@ var nameInput = document.querySelector('#name');
 var emailInput = document.querySelector('#email');
 var numInput = document.querySelector('#number');
 btn.addEventListener('click', (e) => {
-    e.preventDefault();
+    e.preventDefault()
     var obj = {
         name: nameInput.value, email: emailInput.value, number: numInput.value
     }
-    display(obj);
-    axios.post("https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData", obj);
+    console.log(obj)
+
+    axios.post("http://localhost:4000/add-user", obj)
+        .then(res => {
+            display(res.data);
+        })
+        .catch(err => {
+            console.log(err)
+        })
 
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-    axios.get("https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData").then((response) => {
+window.addEventListener('DOMContentLoaded', async () => {
+    const response = await axios.get("http://localhost:4000/allData")
+    try {
         for (var i = 0; i < response.data.length; i++) {
             display(response.data[i]);
-
         }
-    }).catch(err => { console.log(err) })
+    }
+    catch (error) {
+        console.log(error);
+    }
 })
 
 function display(res) {
     var user = document.querySelector('.user');
     var n = document.createElement('li');
-    n.textContent = res.name + "-" + res.email + "-" + res.number;
+    n.textContent = res.name + "-" + res.email + "-" + res.phoneNo;
     user.appendChild(n);
     var edit = document.createElement('button');
+    edit.setAttribute('class','button');
     edit.textContent = 'Edit';
     var delbtn = document.createElement('button');
+    delbtn.setAttribute('class','button');
     delbtn.innerText = 'Delete';
     n.appendChild(delbtn);
     n.appendChild(edit);
@@ -36,17 +48,17 @@ function display(res) {
     delbtn.addEventListener('click', (e) => {
         e.preventDefault;
         user.removeChild(n);
-        axios.delete(`https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData/${res._id}`)
+        axios.delete(`http://localhost:4000/delete/${res.id}`)
     });
 
     edit.addEventListener('click', (e) => {
         e.preventDefault();
         nameInput.value = res.name;
         emailInput.value = res.email;
-        numInput.value = res.number;
+        numInput.value = res.phoneNo;
         user.removeChild(n);
-        axios.delete(`https://crudcrud.com/api/4768ec3a5861457ca1bc397ac3067746/appointmentData/${res._id}`)
-        .catch(err=>{console.log(err)})
+        axios.delete(`http://localhost:4000/delete/${res.id}`)
+            .catch(err => { console.log(err) })
 
     })
 }
